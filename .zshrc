@@ -8,8 +8,22 @@ fi
 umask 0022
 export PYTHONSTARTUP=~/.pythonrc
 
-alias ls='ls --color'
-alias l='ls --color'
+# Colored file listings on macOS and Linux.
+case "$(uname -s)" in
+    Darwin)
+        export CLICOLOR=1
+        alias ls='ls -G'
+        alias l='ls -G'
+        ;;
+    Linux)
+        alias ls='ls --color=auto'
+        alias l='ls --color=auto'
+        ;;
+esac
+
+# Colored Zsh prompt.
+PROMPT='%F{green}%n@%m%f:%F{blue}%~%f %# '
+
 alias lr='ls -ltrh'
 alias ..='cd ..'
 alias ll='ls -Alrth'
